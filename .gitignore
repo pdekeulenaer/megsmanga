@@ -1,0 +1,4 @@
+*.csv
+installs/*
+megsmanga-env/*
+mlruns/*
