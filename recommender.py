@@ -11,7 +11,7 @@ def load_data():
     df.rename(columns={'rating_x':'user_rating', 'rating_y':'total_avg_rating'}, inplace=True)
 
     df['user_has_watched'] = 1
-    
+
     return df, anime, ratings
 
 # Normalize user ratings
