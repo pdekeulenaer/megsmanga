@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+from pandas import DataFrame
 
 DATA_PATH = 'data'
 
@@ -8,7 +9,7 @@ def load_data():
     ratings = pd.read_csv("{}/rating.csv".format(DATA_PATH))
 
     df = ratings.merge(anime, on='anime_id')
-    df.rename(columns={'rating_x':'user_rating', 'rating_y':'total_avg_rating'}, inplace=True)
+    df.rename(columns={'rating_x':'user_rating', 'rating_y':'total_avg_rating', 'name':'movie_name'}, inplace=True)
 
     df['user_has_watched'] = 1
     
@@ -34,11 +35,22 @@ def normalize_user_ratings(df):
     # set those with nan (i.e., no variance in rating) to 0
     return df['normalized_user_rating'].fillna(0.0)
 
+def create_user_matrix(df, valuefield='watched'):
+    matrix = pd.pivot_table(df, values=valuefield, index='user_id', columns='movie_name')
+    return matrix
+
+
+# process:
+# > user based filter
+# > content based filter
+# > combining different filters into 1
+# > serving model for an unknown user
+# > configure new filters
+# > validation of recommendations
+
 def main():
     df, anime, ratings = load_data()
     print (df.head())
-
-
 
 if __name__ == '__main__':
     main()
