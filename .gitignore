@@ -2,6 +2,8 @@
 installs/*
 megsmanga-env/*
 mlruns/*
+.*/*
 .idea/*
 .ipynb_checkpoints/*
 notebooks/.ipynb_checkpoints/*
+__pycache__/*
